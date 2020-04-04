@@ -6,38 +6,59 @@ using LOG;
 
 public class Chat : MonoBehaviour
 {
+    [Tooltip("Is chat open when the scene starts")]
+    public bool ChatIsOpen = false;
+
     [Tooltip("The log to which this chat is attached")]
     [SerializeField] Log log;
-    [Tooltip("Your timer. If empty, then the built-in")]
-    [SerializeField] Timer timer;
 
     [SerializeField] Image imgInputField;
 
     [SerializeField] TMP_InputField inputField;
 
     [Tooltip("Button to send a message")]
-    [SerializeField] KeyCode chatKey;
+    [SerializeField] KeyCode chatSendKey = KeyCode.Return;
 
-    [Space(7)]
-    [SerializeField] string namePlayer;
+    [Space(10)]
+    [SerializeField] string namePlayer = "Player";
     [Tooltip("Pause between messages to prevent spam")]
-    [SerializeField] int freezeTime;
+    [SerializeField] int freezeTime = 5;
 
-    private float deltaTime;
+    private Animation _animation;
+
+    private float timeAfterBlocking;
+
     private bool canSend;
 
-    private void Start()
+    void Start()
     {
+        _animation = GetComponent<Animation>();
+
+        if (ChatIsOpen)
+            OpenChat();
+        else
+            CloseChat();
+
         canSend = true;
-        deltaTime = 0;
+        timeAfterBlocking = 0;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(chatKey))
+        if (Input.GetKeyDown(chatSendKey) && ChatIsOpen)
         {
             Send();
         }
+    }
+
+    public void OpenChat()
+    {
+        _animation.Play("OpenChat");
+    }
+
+    public void CloseChat()
+    {
+        _animation.Play("CloseChat");
     }
 
     public void Send()
@@ -54,24 +75,9 @@ public class Chat : MonoBehaviour
             }
         }
         else
-            StartCoroutine(CannotSend(0.05f));
-    }
-
-    // Redness of the chat during early sending.
-    IEnumerator CannotSend(float delay)
-    {
-        Color curColor = imgInputField.color;
-        Color tempColor = imgInputField.color;
-
-        while (imgInputField.color.r < 0.5f)
         {
-            imgInputField.color = new Color(curColor.r += 0.1f, curColor.g, curColor.b, curColor.a);
-            yield return new WaitForSeconds(delay);
-        }
-        while (imgInputField.color.r > tempColor.r)
-        {
-            imgInputField.color = new Color(curColor.r -= 0.1f, curColor.g, curColor.b, curColor.a);
-            yield return new WaitForSeconds(delay);
+            // Redness of the chat during early sending.
+            _animation.Play("ChatIsBlocked");
         }
     }
 
@@ -80,10 +86,10 @@ public class Chat : MonoBehaviour
     {
         while (!canSend)
         {
-            deltaTime += delay;
-            if (deltaTime > freezeTime)
+            timeAfterBlocking += delay;
+            if (timeAfterBlocking > freezeTime)
             {
-                deltaTime = 0;
+                timeAfterBlocking = 0;
                 canSend = true;
             }
             yield return new WaitForSeconds(delay);

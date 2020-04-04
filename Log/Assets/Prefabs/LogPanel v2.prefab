@@ -541,6 +541,7 @@ GameObject:
   - component: {fileID: 3976270793694707963}
   - component: {fileID: 3976270793694707960}
   - component: {fileID: 3976270793694707962}
+  - component: {fileID: 6396814049246445674}
   m_Layer: 5
   m_Name: Chat
   m_TagString: Untagged
@@ -588,13 +589,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0afd0adddc01c489f8c59f6e8b6d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChatIsOpen: 1
   log: {fileID: 3976270794461292871}
-  timer: {fileID: 0}
-  imgInputField: {fileID: 0}
+  imgInputField: {fileID: 3976270793747246404}
   inputField: {fileID: 3976270793747246405}
-  chatKey: 0
+  chatSendKey: 13
   namePlayer: Player
   freezeTime: 5
+--- !u!111 &6396814049246445674
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976270793694707964}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 78a386f53754eb449b6d7e58a9a2cf80, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 78a386f53754eb449b6d7e58a9a2cf80, type: 2}
+  - {fileID: 7400000, guid: 9215db2b8649789448fa22b8695a69f8, type: 2}
+  - {fileID: 7400000, guid: a2df698385849a847aacfbbef8c10a60, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3976270793747246406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1081,6 @@ GameObject:
   - component: {fileID: 3976270794461292872}
   - component: {fileID: 3976270794461292867}
   - component: {fileID: 3976270794461292871}
-  - component: {fileID: 3976270794461292870}
   m_Layer: 5
   m_Name: LogPanel v2
   m_TagString: Untagged
@@ -1112,40 +1130,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logging: 0
-  ownTimer: 0
-  prefabLogNotice: {fileID: 7580439816993706991, guid: 5c7583bafe4a4b249b5ae8d5bcc735cd,
+  prefabLogNotice: {fileID: 7040734247427746621, guid: 5c7583bafe4a4b249b5ae8d5bcc735cd,
     type: 3}
-  prefabLogProcess: {fileID: 4509691699723202753, guid: 36940ca1305b80b45843567d52adcf0d,
+  prefabLogProcess: {fileID: 4551143463065178434, guid: 36940ca1305b80b45843567d52adcf0d,
     type: 3}
-  chatIsOpen: 0
-  chat: {fileID: 3976270793694707964}
-  chatText: {fileID: 3976270794373756290}
-  chatKey: 13
+  chat: {fileID: 3976270793694707962}
+  chatText: {fileID: 3976270793747246405}
+  chatOpenKey: 13
   scrollRect: {fileID: 3976270794006635822}
   content: {fileID: 3976270793340259026}
-  _animation: {fileID: 3976270794461292870}
   colorMain: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0.49019608}
   colorWarning: {r: 0.60784316, g: 0.29411766, b: 0.29411766, a: 0.49019608}
   colorGoodNews: {r: 0.34901962, g: 0.54901963, b: 0.30588236, a: 0.49019608}
   colorMessages: {r: 0.49019608, g: 0.49019608, b: 0.29411766, a: 0.49019608}
   colorProcess: {r: 0.19607843, g: 0.39215687, b: 0.39215687, a: 0.49019608}
---- !u!111 &3976270794461292870
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3976270794461292873}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 779c26cf9146cc14eb2240a3b2e72ebd, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 779c26cf9146cc14eb2240a3b2e72ebd, type: 2}
-  - {fileID: 7400000, guid: 9f64d55f0d91b4d469de7fd226a6f6a6, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  _animation: {fileID: 0}
 --- !u!1 &3976270794584065384
 GameObject:
   m_ObjectHideFlags: 0

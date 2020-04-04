@@ -1,14 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using LOG;
 
+// Added for example.
 public class AddProcess : MonoBehaviour
 {
     [SerializeField] Log log;
 
+    [SerializeField] string nameProcess;
+    [SerializeField] float duration;
+
     public void Click()
     {
-        log.AddProcess("Process", 5.0f);
+        log.AddProcess(nameProcess, duration);
     }
 }
