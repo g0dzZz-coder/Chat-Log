@@ -12,6 +12,8 @@ namespace LOG
 
         [Tooltip("Write messages to a file")]
         [SerializeField] bool logging;
+        [Tooltip("(Only with logging enabled) If true, then the log is saved along the path Users / Username / AppData / LocalLow / CompanyName / ProjectName /")]
+        [SerializeField] bool usePersistentDataPath;
 
         [Header("Prefabs")]
         [SerializeField] LogNotice prefabLogNotice;
@@ -191,13 +193,18 @@ namespace LOG
         {
             string line = notice.Time + " - " + notice.Text;
 
-            StreamWriter swPersistent = new StreamWriter(Application.persistentDataPath + fileName);
-            swPersistent.WriteLine(line);
-            swPersistent.Close();
-
-            StreamWriter sw = new StreamWriter(Application.dataPath + "/Logs/" + fileName);
-            sw.WriteLine(line);
-            sw.Close();
+            if (usePersistentDataPath)
+            {
+                StreamWriter swPersistent = new StreamWriter(Application.persistentDataPath + fileName);
+                swPersistent.WriteLine(line);
+                swPersistent.Close();
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(Application.dataPath + "/Logs/" + fileName);
+                sw.WriteLine(line);
+                sw.Close();
+            }
         }
 
         // Logging a process;
@@ -205,13 +212,18 @@ namespace LOG
         {
             string line = process.CompletionTime + " - " + process.Text;
 
-            StreamWriter swPersistent = new StreamWriter(Application.persistentDataPath + fileName);
-            swPersistent.WriteLine(line);
-            swPersistent.Close();
-
-            StreamWriter sw = new StreamWriter(Application.dataPath + "/Logs/" + fileName);
-            sw.WriteLine(line);
-            sw.Close();
+            if (usePersistentDataPath)
+            {
+                StreamWriter swPersistent = new StreamWriter(Application.persistentDataPath + fileName);
+                swPersistent.WriteLine(line);
+                swPersistent.Close();
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(Application.dataPath + "/Logs/" + fileName);
+                sw.WriteLine(line);
+                sw.Close();
+            }
         }
 
         #endregion
