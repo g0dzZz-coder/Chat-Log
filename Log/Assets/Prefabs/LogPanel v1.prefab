@@ -307,15 +307,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e837ea0a25b9c47bb946f42553b7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logging: 1
+  logging: 0
+  usePersistentDataPath: 0
   prefabLogNotice: {fileID: 7040734247427746621, guid: 5c7583bafe4a4b249b5ae8d5bcc735cd,
     type: 3}
   prefabLogProcess: {fileID: 4551143463065178434, guid: 36940ca1305b80b45843567d52adcf0d,
     type: 3}
-  chat: {fileID: 4975076328428332561}
-  chatText: {fileID: 4975076328798970735}
+  chatComp: {fileID: 4975076328428332561}
+  chatInputField: {fileID: 4975076328798970735}
   chatOpenKey: 13
-  txtTimer: {fileID: 4975076327553245270}
+  timerTextComp: {fileID: 4975076327553245270}
   scrollRect: {fileID: 4975076328949965726}
   content: {fileID: 4975076328522183770}
   colorMain: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0.49019608}
@@ -728,10 +729,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0afd0adddc01c489f8c59f6e8b6d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChatIsOpen: 0
+  chatIsOpen: 0
   log: {fileID: 4975076328127309813}
-  imgInputField: {fileID: 4975076328798970720}
-  inputField: {fileID: 4975076328798970735}
+  inputFieldComp: {fileID: 4975076328798970735}
   chatSendKey: 13
   namePlayer: Player
   freezeTime: 5

@@ -296,11 +296,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoDelete: 1
-  txtNameProcess: {fileID: 7367464990264032531}
-  txtTime: {fileID: 2953477874532256527}
-  txt_timeLeft: {fileID: 4367587456114959036}
-  imgBackground: {fileID: 2114523562352004884}
-  imgBarFilling: {fileID: 5954005848863455041}
+  nameProcessTextComp: {fileID: 7367464990264032531}
+  timeTextComp: {fileID: 2953477874532256527}
+  timeLeftTextComp: {fileID: 4367587456114959036}
+  backgroundImage: {fileID: 2114523562352004884}
+  barFillingImage: {fileID: 5954005848863455041}
   delay: 0.1
   _animation: {fileID: 5466151867975011753}
   rectBar: {fileID: 1766897410441385785}

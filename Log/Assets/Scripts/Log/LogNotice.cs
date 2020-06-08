@@ -7,49 +7,55 @@ namespace LOG
 {
     public class LogNotice : MonoBehaviour
     {
-        public string Text => txtNameNotice.text;
-        public string Time => txtTime.text;
+        [SerializeField]
+        private TextMeshProUGUI nameNoticeTextComp = null;
+        public string Text => nameNoticeTextComp.text;
 
-        [SerializeField] TextMeshProUGUI txtNameNotice;
-        [SerializeField] TextMeshProUGUI txtTime;
-        [SerializeField] Image background;
+        [SerializeField]
+        private TextMeshProUGUI timeTextComp = null;
+        public string Time => timeTextComp.text;
 
-        private float maxNameWidth;
+        [SerializeField]
+        private Image background = null;
 
-        private RectTransform rect;
+        private float maxNameWidth = 0f;
 
-        void Awake()
+        private RectTransform rect = null;
+
+        private void Awake()
         {
             rect = gameObject.GetComponent<RectTransform>();
 
             // Get maximum line width of text.
-            maxNameWidth = txtNameNotice.GetComponent<RectTransform>().rect.width;
+            maxNameWidth = nameNoticeTextComp.GetComponent<RectTransform>().rect.width;
         }
 
         // Initialization.
         public void Init(string text, string time, Color color)
         {
-            txtNameNotice.text = text;
-            txtTime.text = time;
+            nameNoticeTextComp.text = text;
+            timeTextComp.text = time;
 
             background.color = color;
 
             int countLines = 1;
-            if (txtNameNotice.preferredWidth > maxNameWidth)
-                countLines = (int)Math.Ceiling(txtNameNotice.preferredWidth / maxNameWidth);
-            
-            rect.sizeDelta = new Vector2(rect.rect.width, rect.rect.height * countLines);
+            if (nameNoticeTextComp.preferredWidth > maxNameWidth)
+                countLines = (int)Math.Ceiling(nameNoticeTextComp.preferredWidth / maxNameWidth);
+
+            var rect1 = rect.rect;
+            rect.sizeDelta = new Vector2(rect1.width, rect1.height * countLines);
         }
 
         // Initialization with a given number of lines.
         public void Init(string text, string time, Color color, int countLines)
         {
-            txtNameNotice.text = text;
-            txtTime.text = time;
+            nameNoticeTextComp.text = text;
+            timeTextComp.text = time;
 
             background.color = color;
 
-            rect.sizeDelta = new Vector2(rect.rect.width, rect.rect.height * countLines);
+            var rect1 = rect.rect;
+            rect.sizeDelta = new Vector2(rect1.width, rect1.height * countLines);
         }
     }
 }

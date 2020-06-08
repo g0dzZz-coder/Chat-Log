@@ -4,10 +4,13 @@ using LOG;
 // Added for example.
 public class AddProcess : MonoBehaviour
 {
-    [SerializeField] Log log;
+    [SerializeField]
+    private Log log = null;
 
-    [SerializeField] string nameProcess;
-    [SerializeField] float duration;
+    [SerializeField]
+    private string nameProcess = null;
+    [SerializeField]
+    private float duration = 10f;
 
     public void Click()
     {

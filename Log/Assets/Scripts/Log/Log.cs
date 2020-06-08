@@ -11,39 +11,49 @@ namespace LOG
         #region Fields
 
         [Tooltip("Write messages to a file")]
-        [SerializeField] bool logging;
+        [SerializeField]
+        private bool logging = false;
         [Tooltip("(Only with logging enabled) If true, then the log is saved along the path Users / Username / AppData / LocalLow / CompanyName / ProjectName /")]
-        [SerializeField] bool usePersistentDataPath;
+        [SerializeField]
+        private bool usePersistentDataPath = false;
 
         [Header("Prefabs")]
-        [SerializeField] LogNotice prefabLogNotice;
-        [SerializeField] LogProcess prefabLogProcess;
+        [SerializeField]
+        private LogNotice prefabLogNotice = null;
+        [SerializeField]
+        private LogProcess prefabLogProcess = null;
 
         [Header("Chat")]
-        [Tooltip("Is chat open?")]
-        [SerializeField] Chat chat;
-        [SerializeField] TMP_InputField chatText;
-        [Tooltip("Button to open / close chat")]
-        [SerializeField] KeyCode chatOpenKey = KeyCode.Return;
+        [SerializeField, Tooltip("Is chat open?")]
+        private Chat chatComp = null;
+        [SerializeField, Tooltip("Button to open / close chat")]
+        private KeyCode chatOpenKey = KeyCode.Return;
 
         [Space(10)]
-        [Tooltip("Leave blank if you do not need to display the current time.")]
-        [SerializeField] TextMeshProUGUI txtTimer;
-        [SerializeField] ScrollRect scrollRect;
-        [SerializeField] Transform content;
+        [SerializeField, Tooltip("Leave blank if you do not need to display the current time.")]
+        private TextMeshProUGUI timerTextComp = null;
+        [SerializeField]
+        private ScrollRect scrollRect = null;
+        [SerializeField]
+        private Transform content = null;
 
         [Header("Colors:")]
-        [SerializeField] Color colorMain;
-        [SerializeField] Color colorWarning;
-        [SerializeField] Color colorGoodNews;
-        [SerializeField] Color colorMessages;
-        [SerializeField] Color colorProcess;
+        [SerializeField]
+        private Color colorMain = new Color();
+        [SerializeField]
+        private Color colorWarning = new Color();
+        [SerializeField]
+        private Color colorGoodNews = new Color();
+        [SerializeField]
+        private Color colorMessages = new Color();
+        [SerializeField]
+        private Color colorProcess = new Color();
 
         [Header("Animation")]
-        [Tooltip("Leave blank for little log (LogPanel v2)")]
-        [SerializeField] Animation _animation;
+        [SerializeField, Tooltip("Leave blank for little log (LogPanel v2)")]
+        private Animation _animation = null;
 
-        private float timer;
+        private float timer = 0f;
 
         #endregion
 
@@ -51,7 +61,7 @@ namespace LOG
 
         void Start()
         {
-            if (chat.ChatIsOpen)
+            if (chatComp.IsOpen)
                 EnableChat();
             else
                 DisableChat();
@@ -61,9 +71,9 @@ namespace LOG
 
         void Update()
         {
-            if (Input.GetKeyDown(chatOpenKey) && chatText.text == "")
+            if (Input.GetKeyDown(chatOpenKey) && chatComp.GetInputFieldText() == "")
             {
-                if (chat.ChatIsOpen)
+                if (chatComp.IsOpen)
                     DisableChat();
                 else
                     EnableChat();
@@ -76,8 +86,8 @@ namespace LOG
         {
             timer += Time.deltaTime;
 
-            if (txtTimer != null)
-                txtTimer.text = FormattedTime(timer);
+            if (timerTextComp != null)
+                timerTextComp.text = FormattedTime(timer);
         }
 
         #endregion
@@ -116,7 +126,7 @@ namespace LOG
         // Filling out the notice.
         private LogNotice CreateNotice(string text, Color color)
         {
-            LogNotice notice = Instantiate(prefabLogNotice, content) as LogNotice;
+            var notice = Instantiate(prefabLogNotice, content) as LogNotice;
 
             notice.Init(text, FormattedTime(timer), color);
 
@@ -132,7 +142,7 @@ namespace LOG
         // Filling process.
         private LogProcess CreateProcess(string text, float duration, Color color)
         {
-            LogProcess process = Instantiate(prefabLogProcess, content) as LogProcess;
+            var process = Instantiate(prefabLogProcess, content) as LogProcess;
 
             process.Init(text, duration, FormattedTime(timer), FormattedTime(timer + duration), color);
 
@@ -147,9 +157,9 @@ namespace LOG
 
         private void EnableChat()
         {
-            chat.ChatIsOpen = true;
+            chatComp.IsOpen = true;
 
-            chat.OpenChat();
+            chatComp.OpenChat();
 
             if (_animation != null)
                 _animation.Play("ExpandLog");
@@ -157,9 +167,9 @@ namespace LOG
 
         private void DisableChat()
         {
-            chat.ChatIsOpen = false;
+            chatComp.IsOpen = false;
 
-            chat.CloseChat();
+            chatComp.CloseChat();
 
             if (_animation != null)
                 _animation.Play("CollapseLog");

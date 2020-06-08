@@ -6,46 +6,48 @@ using LOG;
 
 public class Chat : MonoBehaviour
 {
-    [Tooltip("Is chat open when the scene starts")]
-    public bool ChatIsOpen = false;
+    [SerializeField, Tooltip("Is chat open when the scene starts")]
+    private bool chatIsOpen = false;
+    public bool IsOpen { get => chatIsOpen; set => chatIsOpen = value; }
 
-    [Tooltip("The log to which this chat is attached")]
-    [SerializeField] Log log;
+    [SerializeField, Tooltip("The log to which this chat is attached")]
+    private Log log = null;
 
-    [SerializeField] Image imgInputField;
-
-    [SerializeField] TMP_InputField inputField;
-
-    [Tooltip("Button to send a message")]
-    [SerializeField] KeyCode chatSendKey = KeyCode.Return;
+    [SerializeField]
+    private TMP_InputField inputFieldComp = null;
+    public string GetInputFieldText() { return inputFieldComp.text; }
+    [SerializeField, Tooltip("Button to send a message")]
+    private KeyCode chatSendKey = KeyCode.Return;
 
     [Space(10)]
-    [SerializeField] string namePlayer = "Player";
-    [Tooltip("Pause between messages to prevent spam")]
-    [SerializeField] int freezeTime = 5;
+    [SerializeField]
+    private string namePlayer = "Player";
 
-    private Animation _animation;
+    [SerializeField, Tooltip("Pause between messages to prevent spam")]
+    private int freezeTime = 5;
+    private Animation _animation = null;
+    private float timeAfterBlocking = 0f;
+    private bool canSend = true;
 
-    private float timeAfterBlocking;
+    private Coroutine coroutine = null;
+    private float delay = 0.1f;
 
-    private bool canSend;
-
-    void Start()
+    private void Start()
     {
         _animation = GetComponent<Animation>();
 
-        if (ChatIsOpen)
+        if (chatIsOpen)
             OpenChat();
         else
             CloseChat();
 
         canSend = true;
-        timeAfterBlocking = 0;
+        timeAfterBlocking = 0f;
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(chatSendKey) && ChatIsOpen)
+        if (Input.GetKeyDown(chatSendKey) && chatIsOpen)
         {
             Send();
         }
@@ -65,14 +67,14 @@ public class Chat : MonoBehaviour
     {
         if (canSend)
         {
-            if (inputField.text != "")
-            {
-                canSend = false;
-                log.AddMessage(namePlayer, inputField.text);
-                inputField.text = "";
+            if (inputFieldComp.text == "")
+                return;
 
-                StartCoroutine(StopSpam(0.01f));
-            }
+            canSend = false;
+            log.AddMessage(namePlayer, inputFieldComp.text);
+            inputFieldComp.text = "";
+
+            StartStopSpamCoroutine(delay);
         }
         else
         {
@@ -81,8 +83,25 @@ public class Chat : MonoBehaviour
         }
     }
 
+    private void StartStopSpamCoroutine(float delay)
+    {
+        if (coroutine == null)
+        {
+            coroutine = StartCoroutine(StopSpam(delay));
+        }
+    }
+
+    private void StopStopSpamCoroutine()
+    {
+        if (coroutine == null)
+            return;
+
+        StopCoroutine(coroutine);
+        coroutine = null;
+    }
+
     // Pause between sending messages.
-    IEnumerator StopSpam(float delay)
+    private IEnumerator StopSpam(float delay)
     {
         while (!canSend)
         {
@@ -94,5 +113,7 @@ public class Chat : MonoBehaviour
             }
             yield return new WaitForSeconds(delay);
         }
+
+        coroutine = null;
     }
 }
