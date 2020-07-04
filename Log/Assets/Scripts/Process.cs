@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LOG
+namespace ChatForStrategy
 {
     public class Process : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-namespace LOG
+namespace ChatForStrategy
 {
     public class Message : MonoBehaviour
     {

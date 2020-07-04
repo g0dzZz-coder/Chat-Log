@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using LOG;
+using ChatForStrategy;
 
 // Added for example.
 public class AddProcess : MonoBehaviour

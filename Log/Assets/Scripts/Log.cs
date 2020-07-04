@@ -5,7 +5,7 @@ using TMPro;
 using System;
 using System.Collections.Generic;
 
-namespace LOG
+namespace ChatForStrategy
 {
     [Serializable]
     public struct MessageType
@@ -91,14 +91,14 @@ namespace LOG
             CreateMessage(text, messageTypes[2]);
         }
 
-        public void AddMessage(string name, string text)
+        public void AddMessage(string text)
         {
-            CreateMessage(name + ": " + text, messageTypes[3]);
+            CreateMessage(text, messageTypes[3]);
         }
 
-        public void AddOpponentMessage(string name, string text)
+        public void AddOpponentMessage(string text)
         {
-            CreateMessage(name + ": " + text, messageTypes[4]);
+            CreateMessage(text, messageTypes[4]);
         }
 
         public void AddProcess(string text, float duration)
@@ -115,7 +115,7 @@ namespace LOG
             messageTypes.Add(new MessageType { Name = "Notificaton", Color = Color.yellow });
             messageTypes.Add(new MessageType { Name = "Warning", Color = Color.red });
             messageTypes.Add(new MessageType { Name = "GoodNews", Color = Color.green });
-            messageTypes.Add(new MessageType { Name = "PlayerMessage", Color = Color.white });
+            messageTypes.Add(new MessageType { Name = "PlayerMessage", Color = Color.green });
             messageTypes.Add(new MessageType { Name = "OpponentMessage", Color = Color.red });
             messageTypes.Add(new MessageType { Name = "Progress", Color = Color.blue });
         }
