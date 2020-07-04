@@ -22,10 +22,16 @@ public class Chat : MonoBehaviour
     [Space(10)]
     [SerializeField]
     private string namePlayer = "Player";
+    [SerializeField]
+    private string nameOpponent = "Opponent";
 
+    [SerializeField]
+    private bool useStopSpam = false;
     [SerializeField, Tooltip("Pause between messages to prevent spam")]
     private int freezeTime = 5;
+    [SerializeField]
     private Animation _animation = null;
+
     private float timeAfterBlocking = 0f;
     private bool canSend = true;
 
@@ -34,8 +40,6 @@ public class Chat : MonoBehaviour
 
     private void Start()
     {
-        _animation = GetComponent<Animation>();
-
         if (chatIsOpen)
             OpenChat();
         else
@@ -47,34 +51,51 @@ public class Chat : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(chatSendKey) && chatIsOpen)
+        if (Input.GetKeyDown(chatSendKey))
         {
-            Send();
+            if (chatIsOpen)
+            {
+                if (inputFieldComp.text == "")
+                {
+                    CloseChat();
+                }
+                else
+                {
+                    Send();
+                }
+            }
+            else
+            {
+                OpenChat();
+            }
         }
     }
 
     public void OpenChat()
     {
         _animation.Play("OpenChat");
+        chatIsOpen = true;
+        inputFieldComp.ActivateInputField();
     }
 
     public void CloseChat()
     {
         _animation.Play("CloseChat");
+        chatIsOpen = false;
     }
 
     public void Send()
     {
         if (canSend)
         {
-            if (inputFieldComp.text == "")
-                return;
-
-            canSend = false;
             log.AddMessage(namePlayer, inputFieldComp.text);
             inputFieldComp.text = "";
 
-            StartStopSpamCoroutine(delay);
+            if (useStopSpam)
+            {
+                canSend = false;
+                StartStopSpamCoroutine(delay);
+            }
         }
         else
         {
@@ -89,15 +110,6 @@ public class Chat : MonoBehaviour
         {
             coroutine = StartCoroutine(StopSpam(delay));
         }
-    }
-
-    private void StopStopSpamCoroutine()
-    {
-        if (coroutine == null)
-            return;
-
-        StopCoroutine(coroutine);
-        coroutine = null;
     }
 
     // Pause between sending messages.
