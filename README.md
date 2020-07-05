@@ -1,6 +1,6 @@
 ![Log](Images/preview2.png)
 
-v0.4
+v0.3
 ---------------------
 This **Chat** in addition to the function of sending / receiving messages by players allows you to configure system notifications received during the game.
 
