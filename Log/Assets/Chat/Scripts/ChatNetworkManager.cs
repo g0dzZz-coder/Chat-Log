@@ -8,8 +8,6 @@ namespace ChatForStrategy
     {
         [SerializeField]
         private ChatWindow chatWindow = null;
-        [SerializeField]
-        private GameObject buttons = null;
 
         public string PlayerName { get; set; }
 
@@ -47,7 +45,6 @@ namespace ChatForStrategy
             NetworkServer.AddPlayerForConnection(connection, playergo);
 
             chatWindow.gameObject.SetActive(true);
-            buttons.SetActive(true);
         }
     }
 }

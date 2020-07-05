@@ -244,6 +244,7 @@ GameObject:
   - component: {fileID: 2856388831820089694}
   - component: {fileID: 8346701846687107189}
   - component: {fileID: 2479434394303627751}
+  - component: {fileID: 5096328618977895510}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -292,8 +293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924718d59f5e87049b3f2d1425be970d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameNoticeTextComp: {fileID: 8933266223182294727}
-  timeTextComp: {fileID: 3977442358796384663}
+  textMessage: {fileID: 8933266223182294727}
+  textTime: {fileID: 3977442358796384663}
   background: {fileID: 8346701846687107189}
 --- !u!114 &8346701846687107189
 MonoBehaviour:
@@ -340,6 +341,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &5096328618977895510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657664180365661957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &7897820006344470412
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +366,7 @@ GameObject:
   - component: {fileID: 5396526988095274039}
   - component: {fileID: 8933266223182294727}
   m_Layer: 5
-  m_Name: name
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
